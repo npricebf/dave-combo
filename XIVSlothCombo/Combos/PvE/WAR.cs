@@ -32,6 +32,7 @@ namespace XIVSlothCombo.Combos.PvE
             InnerChaos = 16465,
             Orogeny = 25752,
             PrimalRend = 25753,
+            Addle = 7560,
             Onslaught = 7386;
 
         public static class Buffs
@@ -66,7 +67,7 @@ namespace XIVSlothCombo.Combos.PvE
 
             protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
             {
-                if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath) && actionID == StormsPath)
+                if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath) && actionID == Addle)
                 {
                     var gauge = GetJobGauge<WARGauge>().BeastGauge;
                     var surgingThreshold = PluginConfiguration.GetCustomIntValue(Config.WAR_SurgingRefreshRange);
@@ -78,16 +79,16 @@ namespace XIVSlothCombo.Combos.PvE
                     if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_RangedUptime) && LevelChecked(Tomahawk) && !InMeleeRange() && HasBattleTarget())
                         return Tomahawk;
 
-                    if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_Infuriate) && InCombat() && ActionReady(Infuriate) && !HasEffect(Buffs.NascentChaos) && gauge <= 40 && CanWeave(actionID))
+                    if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_Infuriate) && InCombat() && ActionReady(Infuriate) && !HasEffect(Buffs.NascentChaos) && gauge <= 40 && CanWeave(StormsPath))
                         return Infuriate;
 
                     //Sub Storm's Eye level check
-                    if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanDelayedWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk) && !LevelChecked(StormsEye) && InCombat())
+                    if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanDelayedWeave(StormsPath) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk) && !LevelChecked(StormsEye) && InCombat())
                         return OriginalHook(Berserk);
 
                     if (HasEffect(Buffs.SurgingTempest) && InCombat())
                     {
-                        if (CanWeave(actionID))
+                        if (CanWeave(StormsPath))
                         {
                             Status? sustainedDamage = FindTargetEffect(Variant.Debuffs.SustainedDamage);
                             if (IsEnabled(CustomComboPreset.WAR_Variant_SpiritDart) &&
@@ -99,7 +100,7 @@ namespace XIVSlothCombo.Combos.PvE
                                 return Variant.VariantUltimatum;
 
 
-                            if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanDelayedWeave(actionID) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk))
+                            if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_InnerRelease) && CanDelayedWeave(StormsPath) && IsOffCooldown(OriginalHook(Berserk)) && LevelChecked(Berserk))
                                 return OriginalHook(Berserk);
                             if (IsEnabled(CustomComboPreset.WAR_ST_StormsPath_Upheaval) && IsOffCooldown(Upheaval) && LevelChecked(Upheaval))
                                 return Upheaval;
@@ -151,7 +152,7 @@ namespace XIVSlothCombo.Combos.PvE
                     return HeavySwing;
                 }
 
-                return actionID;
+                return StormsPath;
             }
         }
 
