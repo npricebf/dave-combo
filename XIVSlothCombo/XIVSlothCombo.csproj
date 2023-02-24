@@ -7,7 +7,7 @@
 		<Version>3.0.18.1</Version>
 		<!-- This is the version that will be used when pushing to the repo.-->
 		<Description>XIVCombo for lazy players</Description>
-		<Copyright>Copyleft attick 2021 thanks attick UwU</Copyright>
+		<Copyright>Copyleft DAVEY 2021 thanks DAVEY UwU</Copyright>
 		<PackageProjectUrl></PackageProjectUrl>
 		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
